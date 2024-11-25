@@ -4,6 +4,7 @@ import { getUsers } from "../services/api";
 const UsersComponent = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
+  const [errorMessage, setErrorMessage] = useState(""); // Add error message state
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -11,9 +12,12 @@ const UsersComponent = () => {
         const response = await getUsers();
         setUsers(response.data);
       } catch (error) {
-        alert("Error: " + error.response?.data?.message || "Something went wrong");
-        if(error.response?.data?.message ==="Access forbidden"){
+        setLoading(false); // Stop loading immediately
+        const message = error.response?.data?.message || "Something went wrong";
+        alert("Error: " + message);
 
+        if (message === "Access forbidden") {
+          setErrorMessage("You are not allowed to view users."); // Set custom error message
         }
       } finally {
         setLoading(false); // Stop loading regardless of success or error
@@ -26,10 +30,15 @@ const UsersComponent = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
       <h1 className="text-3xl font-bold text-blue-600 mb-6">User List</h1>
-      {loading? (
+      {loading ? (
         <div className="flex justify-center items-center h-20">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600"></div>
           <p className="ml-3 text-blue-600 font-medium">Loading users...</p>
+        </div>
+      ) : errorMessage ? (
+        // Display the error message if access is forbidden
+        <div className="text-red-600 font-medium">
+          {errorMessage}
         </div>
       ) : users.length > 0 ? (
         <ul className="w-full max-w-lg bg-white shadow-md rounded-lg overflow-hidden">
