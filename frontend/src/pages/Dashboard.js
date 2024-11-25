@@ -14,7 +14,7 @@ const UsersComponent = () => {
       } catch (error) {
         setLoading(false); // Stop loading immediately
         const message = error.response?.data?.message || "Something went wrong";
-        alert("Error: " + message);
+        alert(message);
 
         if (message === "Access forbidden") {
           setErrorMessage("You are not allowed to view users."); // Set custom error message

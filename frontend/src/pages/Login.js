@@ -9,7 +9,7 @@ const navigate = useNavigate("")
     try {
       const response = await login(data);
       localStorage.setItem("userToken", response.data.token);
-      alert("Login successful: " + JSON.stringify(response.data));
+      alert("Login successful , Nice to see you again");
       navigate("/dashboard")
     } catch (error) {
       alert("Error: " + error.response.data.message);

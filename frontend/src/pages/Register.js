@@ -9,7 +9,7 @@ const navigate = useNavigate("")
     try {
       const response = await register(data);
       localStorage.setItem("userToken", response.data.token);
-      alert("Registration successful: " + JSON.stringify(response.data));
+      alert("Registration successful Welcome to RBAC");
       navigate("/dashboard")
     } catch (error) {
       alert("Error: " + error.response.data.message);
