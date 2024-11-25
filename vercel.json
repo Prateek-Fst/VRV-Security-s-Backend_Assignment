@@ -27,6 +27,6 @@
       "MONGO_URI": "mongodb+srv://choudharyprateek131:9927729187@cluster0.nkeq4ce.mongodb.net/rbac-db?retryWrites=true&w=majority&appName=Cluster0",
       "JWT_SECRET": "rbac-app"
     },
-    "regions": ["sfo1", "iad1"]
+    "regions": ["sfo1"]
   }
   
