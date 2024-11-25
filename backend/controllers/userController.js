@@ -12,12 +12,6 @@ const registerUser = async (req, res) => {
         const user = await User.create({ username, password, role });
         const token =generateToken(user._id);
         res.set('Authorization', `Bearer ${token}`);
-        res.cookie('token', token, {
-            httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict',  
-            maxAge: 24 * 60 * 60 * 1000, 
-        });
         res.status(201).json({
             id: user._id,
             username: user.username,
@@ -35,12 +29,6 @@ const loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
         const token =generateToken(user._id);
         res.set('Authorization', `Bearer ${token}`);
-        res.cookie('token', token, {
-            httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict',  
-            maxAge: 24 * 60 * 60 * 1000, 
-        });
         res.json({
             id: user._id,
             username: user.username,
